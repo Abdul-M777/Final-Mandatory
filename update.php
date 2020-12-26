@@ -23,8 +23,8 @@ if(!$_SESSION["admin"]){
 
 include_once("header.php");
 
-if(isset($_POST['customerId'])){
-      $_SESSION['firstName'] = $_POST['firstName'];
+if(isset($_POST['firstName'])){
+      $_SESSION['FirstName'] = $_POST['FirstName'];
       $_SESSION['lastName'] = $_POST['lastName'];
       $_SESSION['email'] = $_POST['email'];
       $_SESSION['company'] = $_POST['company'];
@@ -35,6 +35,7 @@ if(isset($_POST['customerId'])){
       $_SESSION['postalCode'] = $_POST['postalCode'];
       $_SESSION['phone'] = $_POST['phoneNumber'];
       $_SESSION['fax'] = $_POST['fax'];
+
     
   ?>
   <div id="updateSuccess">
@@ -57,7 +58,7 @@ if(isset($_POST['customerId'])){
         <input type="text" placeholder="Phone number" value="<?php echo $_SESSION['phone'];?>" name="phoneNumber" id="phoneNumber">
         <input type="text" placeholder="Fax" value="<?php echo $_SESSION['fax'];?>" name="fax" id="fax">
         <input type="email" placeholder="Email" value="<?php echo $_SESSION['email'];?>" name="email" id="email" required>
-        <input type="hidden" name="customerId" id="customerId" value=<?=$_SESSION['customerId']?>>
+        <input type="hidden" name="customerId" id="customerId" value=<?php echo $_SESSION['customerId'];?>>
         <input type="submit" id="updateInfo" value="Update">
       </fieldset>
     </form>

@@ -1,11 +1,11 @@
 $(document).ready(function() {
 
-    var new_data;
 
     $.ajax({
         type:"GET",
-        url: "API/artists",
+        url: "API/albums",
         success: function(data){
+
             data = data.replace(/\\n/g, "\\n")  
        .replace(/\\'/g, "\\'")
        .replace(/\\"/g, '\\"')
@@ -19,42 +19,42 @@ $(document).ready(function() {
 
         // var o = JSON.parse(data);
         // console.log(o);
-        new_data = JSON.parse(data);
-        console.log(new_data);
+        data = JSON.parse(data);
+        console.log(data);
         var tr=[];
-        for (var i = 0; i < new_data.length; i++) {
+        for (var i = 0; i < data.length; i++) {
             tr.push('<tr>');
-            tr.push('<td>' + new_data[i].ArtistId + '</td>');
-            tr.push('<td>' + new_data[i].Name + '</td>');
-            tr.push('<td><button class=\'edit\'>Edit</button>&nbsp;&nbsp;<button class=\'delete\' id=' + new_data[i].ArtistId + '>Delete</button></td>');
+            tr.push('<td>' + data[i].albumId + '</td>');
+            tr.push('<td>' + data[i].title + '</td>');
+            tr.push('<td>' + data[i].name + '</td>');
+            tr.push('<td><button class=\'edit\'>Edit</button>&nbsp;&nbsp;<button class=\'delete\' id=' + data[i].AlbumId + '>Delete</button></td>');
             tr.push('</tr>');
         }
         $('table').append($(tr.join('')));
         }
     });
     
-    
-
     $(document).delegate('#addNew', 'click', function(event) {
         event.preventDefault();
         
         var name = $('#name').val();
+        var artist_id = $('#artistDrowpdownCreate').val();
         
         if(name == null || name == "") {
-            alert("Artist Name is required");
+            alert("Album Name is required");
             return;
         }
         
         $.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
-            url: "API/artists",
-            data: JSON.stringify({'name': name}),
+            url: "API/albums",
+            data: JSON.stringify({
+                'name': name,
+                'artist_id': artist_id}),
             cache: false,
             success: function(result) {
-                console.log(name);
-                console.log(result)
-                alert('Artist added successfully');
+                alert('Album added successfully');
                 location.reload(true);
             },
             error: function(err) {
@@ -67,31 +67,17 @@ $(document).ready(function() {
     $(document).delegate('.delete', 'click', function() { 
         if (confirm('Do you really want to delete record?')) {
             var id = $(this).attr('id');
-            console.log("ArtistId: "+id);
+            console.log("Album Id: "+id);
             var parent = $(this).parent().parent();
             $.ajax({
                 type: "DELETE",
-                url: "API/artists?id=" + id,
+                url: "API/albums?id=" + id,
                 cache: false,
-                success: function(data) {
-                    console.log(data);
-                    console.log(data.length);
-                    console.log(new_data);
-                    try {
-                        if(data.length == 27){
-                            parent.fadeOut('slow', function() {
-                            $(this).remove();
-                            location.reload(true)
-                            });
-                        } else {
-                            alert("Artist can not be deleted if artist has an album");
-                        }
-                        
-                        
-                    } catch (error) {
-                        
-                    }
-                    
+                success: function() {
+                    parent.fadeOut('slow', function() {
+                        $(this).remove();
+                    });
+                     location.reload(true)
                 },
                 error: function() {
                     alert('Error deleting record');
@@ -106,7 +92,7 @@ $(document).ready(function() {
         var id = parent.children("td:nth-child(1)");
         console.log(id);
         var name = parent.children("td:nth-child(2)");
-        var buttons = parent.children("td:nth-child(3)");
+        var buttons = parent.children("td:nth-child(4)");
         
         name.html("<input type='text' id='txtName' value='" + name.html() + "'/>");
         buttons.html("<button id='save'>Save</button>&nbsp;&nbsp;<button class='delete' id='" + id.html() + "'>Delete</button>");
@@ -118,15 +104,18 @@ $(document).ready(function() {
         var id = parent.children("td:nth-child(1)");
         console.log(id);
         var name = parent.children("td:nth-child(2)");
-        var buttons = parent.children("td:nth-child(3)");
+        var buttons = parent.children("td:nth-child(4)");
         
         $.ajax({
             type: "PUT",
             contentType: "application/json; charset=utf-8",
-            url: "API/artists",
-            data: JSON.stringify({'id' : id.html(), 'name' : name.children("input[type=text]").val()}),
+            url: "API/albums",
+            data: JSON.stringify({
+                'id' : id.html(),
+                'name' : name.children("input[type=text]").val()}),
             cache: false,
             success: function() {
+                location.reload(true);
                 console.log(id.html());
                 console.log(name.children("input[type=text]").val());
                 name.html(name.children("input[type=text]").val());
@@ -138,6 +127,17 @@ $(document).ready(function() {
         });
     });
 
-   
+    $.ajax({
+        type:"GET",
+        url: "API/artists",
+        success: function(data){
+            data = JSON.parse(data);
+            console.log(data);
+            data.forEach(element => {
+                $("#artistDrowpdownCreate").append($("<option>", {value: element['ArtistId'], text: element['Name']}));
+            })
+
+        }
+    });
 
 });

@@ -24,7 +24,7 @@ class User
         session_start();
 
 $query = <<<'SQL'
-    SELECT customerId, password, email, FirstName, LastName, Company, Address, City, State, Country, PostalCode, Phone, Fax FROM customer WHERE email = ?;
+    SELECT CustomerId, password, email, FirstName, LastName, Company, Address, City, State, Country, PostalCode, Phone, Fax FROM customer WHERE email = ?;
 SQL;
 
 
@@ -40,7 +40,7 @@ SQL;
         if ($verify) {
 
 $query = <<<'SQL'
-    SELECT password FROM admin;
+    SELECT * FROM admin;
 SQL;
 
 

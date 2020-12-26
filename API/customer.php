@@ -1,5 +1,8 @@
 <?php
   require_once('../db/config.php');  
+
+  header("Access-Control-Allow-Origin: *");
+  header("Access-Control-Allow-Methods: GET");
   
   class User {
 
@@ -15,8 +18,9 @@
     public $postalCode;
     public $phone;
     public $fax;
+
     
-    # Insert user into database
+    
     function create($data){
       global $pdo;
 
@@ -41,7 +45,6 @@ SQL;
       );
       $result = $stmt->execute($insert_data);
 
-      # Check if query was successful
       if($result){
         echo true;
       } else {
@@ -80,7 +83,6 @@ SQL;
       $stmt = $pdo->prepare($query);
       $result = $stmt->execute($update_data);
 
-      # Check if query was successful
       if($result){
         return true;
       } else {
@@ -88,10 +90,8 @@ SQL;
       }
     }
 
-    # Validate user based on $email and $password
     function sign_in($email, $password){
       global $pdo;
-      // session_start();
 
 $query = <<<'SQL'
       SELECT password, email, firstName, lastName, company, address, city, state, country, PostalCode, phone, fax, customerId
@@ -99,7 +99,6 @@ $query = <<<'SQL'
       WHERE email=?
 SQL;
 
-      # Prepare and execute statement for retrieving user based on email
       $stmt = $pdo->prepare($query);
       $stmt->execute(array($email));
       $user = $stmt->fetch();
@@ -112,8 +111,7 @@ $query = <<<'SQL'
         FROM admin
 SQL;
 
-        # Prepare and execute statement for retrieving Admin password
-        # If given $password is equal to Admin password, set admin session token
+        
         $pass_hash = password_hash($password, PASSWORD_DEFAULT);
         $stmt = $pdo->prepare($query);
         $stmt->execute(array($pass_hash));
@@ -129,11 +127,10 @@ SQL;
         $this->city = $user['city'];
         $this->state = $user['state'];
         $this->country = $user['country'];
-        $this->postalCode = $user['PostalCode'];
+        $this->postalCode = $user['postalCode'];
         $this->phone = $user['phone'];
         $this->fax = $user['fax'];
         
-        // $_SESSION['email'] = $_POST['email'];
         if(password_verify($password, $admin[0])) {
           $admin = "true";
         } else {

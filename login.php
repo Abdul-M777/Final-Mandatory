@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-//DELETE OR CHANGE IT.
 if(!isset($_SESSION["cserf"])){
     $_SESSION["cserf"] = bin2hex(random_bytes(32));
 }
@@ -75,7 +74,6 @@ if(isset($_POST["token"])){
         <div>
             <input type="password" placeholder="Password" name="password" id="passwordSignIn" required>
         </div>
-        <!-- DELETE THIS OR CHANGE IT. -->
         <input type="hidden" name="token" value=<?=$_SESSION["cserf"]?>>
         <div>
             <button type="submit" id="btnSignIn">Sign In</button>
