@@ -68,6 +68,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$row = dbFetchAssoc($result);
 	
 	echo json_encode($row);
+}else if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['name'])) {
+	$sql = "SELECT track.name AS trackName, album.title AS albumTitle, genre.name AS genre, track.unitPrice, track.trackId, track.composer, track.MediaTypeId
+	FROM track
+	LEFT JOIN album ON album.albumid=track.albumid
+	LEFT JOIN genre ON genre.genreid=track.genreid WHERE track.name Like '%".mysqli_real_escape_string($dbConn, $_GET['name'])."%'";
+	$results = dbQuery($sql);
+	$rows = array();
+	
+	while($row = dbFetchAssoc($results)) {
+		$rows[] = $row;
+	}
+	echo json_encode($rows);
 } else {
 	$sql = "SELECT track.name AS trackName, album.title AS albumTitle, genre.name AS genre, track.unitPrice, track.trackId, track.composer, track.MediaTypeId
 	FROM track

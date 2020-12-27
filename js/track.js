@@ -2,9 +2,13 @@ $(document).ready(function() {
 
     var new_data;
 
-    $.ajax({
-        type:"GET",
-        url: "API/tracks",
+    $("#btnSearch").on("click", function(e){
+        e.preventDefault();
+    
+        var title = $("#searchTrack").val();
+            console.log(title);
+        $.ajax({
+            url: `API/tracks?name=${title}`,
         success: function(data){
             data = data.replace(/\\n/g, "\\n")  
        .replace(/\\'/g, "\\'")
@@ -20,7 +24,6 @@ $(document).ready(function() {
         // var o = JSON.parse(data);
         // console.log(o);
         new_data = JSON.parse(data);
-        console.log(new_data);
         var tr=[];
         for (var i = 0; i < new_data.length; i++) {
             tr.push('<tr>');
@@ -40,12 +43,15 @@ $(document).ready(function() {
             tr.push('<td>' + "AAC audio file" + '</td>');
             }
             tr.push('<td>'+new_data[i].genre+'</td>');
+            tr.push('<td>' + new_data[i].albumTitle + '</td>');
             tr.push('<td><button class=\'edit\'>Edit</button>&nbsp;&nbsp;<button class=\'delete\' id=' + new_data[i].TrackId + '>Delete</button></td>');
             tr.push('</tr>');
         }
         $('table').append($(tr.join('')));
         }
     });
+
+});
     
     
 
@@ -139,7 +145,7 @@ $(document).ready(function() {
         var price = parent.children("td:nth-child(4)");
         var mediaType_id = parent.children("td:nth-child(5)");
         var genre_id = parent.children("td:nth-child(6)");
-        var buttons = parent.children("td:nth-child(7)");
+        var buttons = parent.children("td:nth-child(8)");
         
         name.html("<input type='text' id='txtName' value='" + name.html() + "'/>");
         composer.html("<input type='text' id='txtcomposer' value='" + composer.html() + "'/>");
@@ -177,6 +183,7 @@ $(document).ready(function() {
         "<option value='"+24+"'>Classical</option>"+
         "<option value='"+25+"'>Opera</option>"+
         "</select>");
+        
         buttons.html("<button id='save'>Save</button>&nbsp;&nbsp;<button class='delete' id='" + id.html() + "'>Delete</button>");
     });
     
@@ -190,7 +197,7 @@ $(document).ready(function() {
         var price = parent.children("td:nth-child(4)");
         var mediaType_id = parent.children("td:nth-child(5)");
         var genre_id = parent.children("td:nth-child(6)");
-        var buttons = parent.children("td:nth-child(7)");
+        var buttons = parent.children("td:nth-child(8)");
         
         $.ajax({
             type: "PUT",
@@ -234,7 +241,7 @@ $(document).ready(function() {
         success: function(data){
             data = JSON.parse(data);
             data.forEach(element => {
-                $("#albumDrowpdownCreate").append($("<option>", {value: element['AlbumId'], text: element['Title']}));
+                $("#albumDrowpdownCreate").append($("<option>", {value: element['albumId'], text: element['title']}));
             })
 
         }

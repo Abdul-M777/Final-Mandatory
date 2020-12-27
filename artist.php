@@ -18,9 +18,14 @@
 		<input type="text" id="name" name="artist_name" value="">
 		<div class="input-group">
 		<button class="btn" type="submit" id="addNew" name="artist_submit">Save</button>
+
+		
 	</div>
 	</div>
-	
+	<div id="searchDiv">
+		<input type="text" id="searchArtist" placeholder="Name">
+		<button id="btnSearch">Search</button>
+		</div>
 	
 
 	<table class="table_id">

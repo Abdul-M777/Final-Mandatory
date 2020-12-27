@@ -1,9 +1,13 @@
 $(document).ready(function() {
 
 
-    $.ajax({
-        type:"GET",
-        url: "API/albums",
+    $("#btnSearch").on("click", function(e){
+        e.preventDefault();
+    
+        var title = $("#searchAlbum").val();
+            console.log(title);
+        $.ajax({
+            url: `API/albums?name=${title}`,
         success: function(data){
 
             data = data.replace(/\\n/g, "\\n")  
@@ -33,6 +37,8 @@ $(document).ready(function() {
         $('table').append($(tr.join('')));
         }
     });
+
+});
     
     $(document).delegate('#addNew', 'click', function(event) {
         event.preventDefault();

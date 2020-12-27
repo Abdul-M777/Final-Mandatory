@@ -50,6 +50,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$row = dbFetchAssoc($result);
 	
 	echo json_encode($row);
+}else if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['name'])) {
+	$sql = "SELECT artist.name, album.title, album.albumId, artist.artistId FROM album
+	LEFT JOIN artist ON album.ArtistId = artist.ArtistID WHERE album.title Like '%".mysqli_real_escape_string($dbConn, $_GET['name'])."%'";
+	$results = dbQuery($sql);
+	$rows = array();
+	
+	while($row = dbFetchAssoc($results)) {
+		$rows[] = $row;
+	}
+	echo json_encode($rows);
 } else {
 	$sql = " SELECT artist.name, album.title, album.albumId, artist.artistId
 	FROM album

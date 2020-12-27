@@ -26,6 +26,11 @@
 	<div class="input-group">
 		<button class="btn" type="button" id="addNew">Save</button>
 	</div>
+
+	<div id="searchDiv">
+		<input type="text" id="searchAlbum" placeholder="Name">
+		<button id="btnSearch">Search</button>
+		</div>
 	
 
 	<table class="table_id">

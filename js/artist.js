@@ -2,36 +2,43 @@ $(document).ready(function() {
 
     var new_data;
 
-    $.ajax({
-        type:"GET",
-        url: "API/artists",
-        success: function(data){
-            data = data.replace(/\\n/g, "\\n")  
-       .replace(/\\'/g, "\\'")
-       .replace(/\\"/g, '\\"')
-       .replace(/\\&/g, "\\&")
-       .replace(/\\r/g, "\\r")
-       .replace(/\\t/g, "\\t")
-       .replace(/\\b/g, "\\b")
-       .replace(/\\f/g, "\\f");
-        // remove non-printable and other non-valid JSON chars
-        data = data.replace(/[\u0000-\u0019]+/g,"");
-
-        // var o = JSON.parse(data);
-        // console.log(o);
-        new_data = JSON.parse(data);
-        console.log(new_data);
-        var tr=[];
-        for (var i = 0; i < new_data.length; i++) {
-            tr.push('<tr>');
-            tr.push('<td>' + new_data[i].ArtistId + '</td>');
-            tr.push('<td>' + new_data[i].Name + '</td>');
-            tr.push('<td><button class=\'edit\'>Edit</button>&nbsp;&nbsp;<button class=\'delete\' id=' + new_data[i].ArtistId + '>Delete</button></td>');
-            tr.push('</tr>');
-        }
-        $('table').append($(tr.join('')));
-        }
-    });
+    $("#btnSearch").on("click", function(e){
+        e.preventDefault();
+    
+        var title = $("#searchArtist").val();
+            console.log(title);
+        $.ajax({
+            url: `API/artists?name=${title}`,
+            type: "GET",
+            success: function(data){
+                data = data.replace(/\\n/g, "\\n")  
+           .replace(/\\'/g, "\\'")
+           .replace(/\\"/g, '\\"')
+           .replace(/\\&/g, "\\&")
+           .replace(/\\r/g, "\\r")
+           .replace(/\\t/g, "\\t")
+           .replace(/\\b/g, "\\b")
+           .replace(/\\f/g, "\\f");
+            // remove non-printable and other non-valid JSON chars
+            data = data.replace(/[\u0000-\u0019]+/g,"");
+    
+                console.log(data);
+                new_data = JSON.parse(data);
+            console.log(new_data);
+            var tr=[];
+            for (var i = 0; i < new_data.length; i++) {
+                tr.push('<tr>');
+                tr.push('<td>' + new_data[i].ArtistId + '</td>');
+                tr.push('<td>' + new_data[i].Name + '</td>');
+                tr.push('<td><button class=\'edit\'>Edit</button>&nbsp;&nbsp;<button class=\'delete\' id=' + new_data[i].ArtistId + '>Delete</button></td>');
+                tr.push('</tr>');
+            }
+            $('table').append($(tr.join('')));
+            }
+                
+        })
+    
+       });
     
     
 
@@ -127,6 +134,7 @@ $(document).ready(function() {
             data: JSON.stringify({'id' : id.html(), 'name' : name.children("input[type=text]").val()}),
             cache: false,
             success: function() {
+                location.reload(this);
                 console.log(id.html());
                 console.log(name.children("input[type=text]").val());
                 name.html(name.children("input[type=text]").val());

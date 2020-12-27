@@ -48,25 +48,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$row = dbFetchAssoc($result);
 	
 	echo json_encode($row);
+} else if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['name'])) {
+	$sql = "SELECT * FROM artist WHERE Name Like '%".mysqli_real_escape_string($dbConn, $_GET['name'])."%'";
+	$results = dbQuery($sql);
+	$rows = array();
+	
+	while($row = dbFetchAssoc($results)) {
+		$rows[] = $row;
+	}
+	echo json_encode($rows);
 } else {
-	 $result_per_page = 50;
 
 	$sql = "SELECT * FROM artist";
 	$results = dbQuery($sql);
-	$number_of_results = mysqli_num_rows($results);
-	
 	$rows = array();
 	
-	while($row = mysqli_fetch_array($results)) {
+	while($row = dbFetchAssoc($results)) {
 		$rows[] = $row;
 	}
-
-	$number_of_pages = ceil($number_of_results/$result_per_page);
-	
-
-	// for ($page=1;$page<=$number_of_pages;$page++) {
-	// 	echo '<a href="../artist.php?page=' . $page .'">'. $page .'</a> ';
-	// }
 
 	echo json_encode($rows);
 

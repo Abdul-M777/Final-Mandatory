@@ -95,6 +95,11 @@
     </div>
 	
 
+    <div id="searchDiv">
+		<input type="text" id="searchTrack" placeholder="Name">
+		<button id="btnSearch">Search</button>
+		</div>
+
 	<table class="table_id">
 		<tr>
 			<th>Id</th>
@@ -102,7 +107,8 @@
 			<th>Composer</th>
       <th>Price</th>
       <th>MediaType</th>
-			<th>Genre</th>
+      <th>Genre</th>
+			<th>Album Title</th>
 			<th>Actions</th>
 		</tr>
 	</table>
