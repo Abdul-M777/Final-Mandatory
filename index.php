@@ -14,8 +14,8 @@ include_once("header.php");
 <body>
     <?php
 session_start();
-if(isset($_POST["email"]) && $_POST["email"] != ""){
-    require_once("db/user.php");
+if(isset($_POST["userMail"]) && $_POST["userMail"] != ""){
+    require_once("includes/login.inc.php");
     if($verified){
         header("Location: update.php");
     }
@@ -23,8 +23,8 @@ if(isset($_POST["email"]) && $_POST["email"] != ""){
     session_destroy();
 }
 
-if (!isset($_SESSION["email"])){
-    header("Location: login.php");
+if (!isset($_SESSION['userId'])){
+    header("Location: signup.php");
 } else {
     header("Location: update.php");
 }

@@ -13,6 +13,51 @@ ul {
   overflow: hidden;
   background-color: rgb(104, 104, 238);
 }
+
+.login_header{
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+  background-color: rgb(104, 104, 238);
+}
+
+.login_header h2 {
+  text-align: center;
+  padding: 10px 300px;
+  color: white;
+}
+
+#signup_btn{
+  padding: 10px;
+  font-size: 15px;
+  color: white;
+  background: #5F9EA0;
+  border: none;
+  border-radius: 5px;
+  margin: 10px;
+  margin-bottom: 20px;
+}
+
+#logout_form {
+  list-style-type: none;
+  overflow: hidden;
+  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgb(104, 104, 238);
+}
+
+#login_form{
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+  float: right;
+  background-color: rgb(104, 104, 238);
+}
+
 ul h2 {
   text-align: center;
   padding: 10px 300px;
@@ -26,6 +71,15 @@ ul img {
   height: 50px;
   width: 50px;
 }
+
+img{
+  display: block;
+  background-color: rgb(104, 104, 238);
+  float: left;
+  height: 50px;
+  width: 50px;
+}
+
 li a {
   display: block;
   color: white;
@@ -42,7 +96,7 @@ footer {
   color: white;
   background-color: rgb(104, 104, 238);
   text-align: center;
-  margin-top: 20px;
+  margin-top: 50px;
 }
 .input-group {
   margin: 10px 0px 10px 0px;
@@ -71,6 +125,35 @@ footer {
 .table_id{
   border: 1px solid black; 
   margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+#track_c_table{
+  border: 1px solid black; 
+  margin-bottom: 30px;
+  margin-top: 30px;
+  align-items: center;
+}
+
+.track_c_table_div{
+  margin-top: 30px;
+  border: 2px solid #5F9EA0;
+  margin-bottom: 30px;
+}
+
+.album_c_table{
+  border: 1px solid black; 
+  align-items: center;
+}
+
+.album_c_table th{
+  margin: 5px;
+  align-items: center;
+}
+
+.album_c_table td{
+  margin: 5px;
+  overflow: auto; height: 60px; width: 200px
 }
 
 td{
@@ -85,4 +168,46 @@ td{
   color: white;
   border: none;
   border-radius: 5px;
+}
+
+.album_c_table_div{
+  align-self: center;
+  margin-top: 20px;
+  margin-left: 50px;
+  margin-bottom: 50px;
+}
+
+#searchDiv{
+  margin-left: 50px;
+  margin-top: 20px;
+}
+
+.albums_c_header{
+  margin-left: 50px;
+  margin-top: 20px;
+}
+
+.artist_c_header{
+  margin-left: 50px;
+  margin-top: 20px;
+}
+
+#names_h3{
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  text-decoration: underline;
+}
+
+#names_h5{
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+
+#track_c_header{
+  margin-left: 50px;
+  margin-top: 20px;
+
 }
