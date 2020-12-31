@@ -1,0 +1,9 @@
+Todo list:
+
+Database constraints.
+make it look acceptable.
+Session and shit to make it differ from admin and customer
+Login for admin.
+Pagination for customer part.
+Deploy.
+Train for the live coding.

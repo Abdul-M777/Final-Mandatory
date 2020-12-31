@@ -211,3 +211,28 @@ td{
   margin-top: 20px;
 
 }
+
+.admin_fieldset{
+background-color: rgb(105, 96, 96);
+
+}
+
+#admin_legend{
+  color: whitesmoke;
+}
+
+.admin_div_login{
+  background-color: #5F9EA0;
+  border: #5F9EA0 solid 2px;
+  width: 60%;
+  margin: auto;
+  padding: 10px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.admin_login_body {
+  background-color: black;
+}
