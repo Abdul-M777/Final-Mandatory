@@ -13,7 +13,7 @@
 
 
 <?php
-    if(isset($_SESSION['userId'])){
+    if(isset($_SESSION['admin'])){
     echo'<ul>
     <img src="img/fire-music.jpg" alt="music-logo">
     <li><a href="album">Albums</a></li>
@@ -24,6 +24,18 @@
     '<form action="includes/logout.inc.php" method="post" id="logout_form">
      <button type="submit" name="logout-submit">Logout</button>
     </form>';
+    }else if(isset($_SESSION['userId'])){
+        echo'<ul>
+        <img src="img/fire-music.jpg" alt="music-logo">
+        <li><a href="album_c">Albums</a></li>
+        <li><a href="artist_c">Artists</a></li>
+        <li><a href="track_c">Tracks</a></li>
+        <li><a href="update">Profile</a></li>
+        <h2>Music Store</h2>
+        </ul>'.
+        '<form action="includes/logout.inc.php" method="post" id="logout_form">
+         <button type="submit" name="logout-submit">Logout</button>
+        </form>';
     }else{
         echo '
         <div class="login_header">

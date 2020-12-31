@@ -23,11 +23,17 @@ if(isset($_POST["userMail"]) && $_POST["userMail"] != ""){
     session_destroy();
 }
 
-// if (!isset($_SESSION['userId'])){
-//     header("Location: signup.php");
-// } else {
-//     header("Location: update.php");
-// }
+if (!isset($_SESSION['userId'])){
+    header("Location: signup.php");
+} else {
+    header("Location: update.php");
+}
+
+if(isset($_SESSION["admin"])){
+    header("Location: artist.php");
+} else{
+    header("Location: signup.php");
+} 
 ?>
 </body>
 <?php
