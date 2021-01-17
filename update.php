@@ -29,7 +29,7 @@ include_once("header.php");
         <legend>Update password</legend>
         <input type="password" placeholder="Password" name="password" id="password" required>
         <input type="password" placeholder="Repeat Password" name="passwordRepeat" id="passwordRepeat" required>
-        <input type="hidden" name="customerId" id="customerId" value=<?php echo $_SESSION['userId'];?>>
+        <input type="hidden" name="customerId" id="customerIdpass" value=<?php echo $_SESSION['userId'];?>>
         <input type="submit" id="updatePassword" value="Update" name="submit_update_password">
       </fieldset>
     </form>

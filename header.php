@@ -31,7 +31,8 @@
         <li><a href="artist_c">Artists</a></li>
         <li><a href="track_c">Tracks</a></li>
         <li><a href="update">Profile</a></li>
-        <h2>Music Store</h2>
+        <li><a href="cart">Cart</a></li>
+        <li><h2>Music Store</h2></li>
         </ul>'.
         '<form action="includes/logout.inc.php" method="post" id="logout_form">
          <button type="submit" name="logout-submit">Logout</button>
@@ -47,6 +48,7 @@
         <button type="submit" name="login-submit">Login</button>
         </form>
         <a id="signup_btn" href="signup.php">Signup</a>
+        <a id="admin_btn" href="admin_log.php">Admin</a>
         </div>';
     }
 ?>

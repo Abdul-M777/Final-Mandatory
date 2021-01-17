@@ -1,6 +1,6 @@
 Todo list:
 
-Database constraints.
+
 make it look acceptable.
 Session and shit to make it differ from admin and customer (Almost done).
 Login for admin (I Think is done).

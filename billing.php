@@ -12,6 +12,7 @@ if(isset($_POST["submit_bill"])){
     $billingPostal = $_POST["postalCode"];
     $total = $_SESSION["total"];
     $time = date("Y-m-d h:i:s");
+    $invoice = $_SESSION['invoice'];
 
     if(empty($billingAddress) || empty($billingCity) || empty($billingState) || empty($bilingCountry) || empty($billingPostal) || empty($customerId)){
 
@@ -29,17 +30,27 @@ if(isset($_POST["submit_bill"])){
 
             mysqli_stmt_bind_param($stmt, "issssssd", $customerId, $time, $billingAddress, $billingCity, $billingState, $bilingCountry, $billingPostal, $total);
             mysqli_stmt_execute($stmt);
-            header("Location: track_c.php");
-            unset($_SESSION["shopping_cart"]);
-            unset($_SESSION["total"]);
-            exit();
+            $sql2 = "SELECT * FROM invoice ORDER by InvoiceId DESC LIMIT 1;";
+            $stmt2 = mysqli_stmt_init($dbConn);
+            
+       
+            $result = dbQuery($sql2);
+            if($row = mysqli_fetch_assoc($result)){
+                $_SESSION['invoice'] = $row['InvoiceId'];
+                header("Location: invoiceLine.php");
+                exit();
+
+        }
+            // unset($_SESSION["shopping_cart"]);
+            // unset($_SESSION["total"]);
+           
+            // $_SESSION['invoice'] = $row['InvoiceId'];
+            // exit();
         }
     }
 
 
-
 }
-
 ?>
 
 
@@ -66,6 +77,7 @@ if(isset($_POST["submit_bill"])){
         <input type="text" placeholder="Postal Code" value="<?php echo $_SESSION['postal'];?>" name="postalCode" id="postalCode">
         <br>
         <input type="hidden" name="customerId" id="customerId" value=<?php echo $_SESSION['userId'];?>>
+        <input type="hidden" name="invoiceId" id="invoiceId" value=<?php echo $_SESSION['invoice'];?>>
         <input type="submit" id="billInfo" value="Buy" name="submit_bill">
         <br>
       </fieldset>

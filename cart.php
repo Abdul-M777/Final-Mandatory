@@ -1,7 +1,8 @@
 <?php
 
-session_start();
 require 'API/db.php';
+
+require_once 'header.php';
 
 if(isset($_GET["action"])){
     if($_GET["action"] == "delete"){
@@ -66,6 +67,7 @@ if(isset($_POST['buy_btn'])){
         </tr>
         <?php
     }
+
     ?>
 
 
@@ -77,5 +79,11 @@ if(isset($_POST['buy_btn'])){
 <form action="cart.php" method="POST">
     <input type="submit" value="Buy" name="buy_btn">
 </form>
+
+
+<?php
+require_once 'footer.php';
+
+?>
 </body>
 </html>

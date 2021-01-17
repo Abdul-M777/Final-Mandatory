@@ -44,7 +44,7 @@ $(document).ready(function() {
             }
             tr.push('<td>'+new_data[i].genre+'</td>');
             tr.push('<td>' + new_data[i].albumTitle + '</td>');
-            tr.push('<td><button class=\'edit\'>Edit</button>&nbsp;&nbsp;<button class=\'delete\' id=' + new_data[i].TrackId + '>Delete</button></td>');
+            tr.push('<td><button class=\'edit\'>Edit</button>&nbsp;&nbsp;<button class=\'delete\' id=' + new_data[i].trackId + '>Delete</button></td>');
             tr.push('</tr>');
         }
         $('table').append($(tr.join('')));
@@ -113,7 +113,7 @@ $(document).ready(function() {
     $(document).delegate('.delete', 'click', function() { 
         if (confirm('Do you really want to delete record?')) {
             var id = $(this).attr('id');
-            console.log("ArtistId: "+id);
+            console.log("TrackId: "+id);
             var parent = $(this).parent().parent();
             $.ajax({
                 type: "DELETE",
@@ -123,10 +123,16 @@ $(document).ready(function() {
                     console.log(data);
                     console.log(data.length);
                     console.log(new_data);
-                    parent.fadeOut('slow', function() {
-                        $(this).remove();
-                        location.reload(true)
-                        });
+                    if(data.length == 234){
+                        alert("Cannot Delete purchased tracks");
+                        location.reload(true);
+                    }else{
+                        parent.fadeOut('slow', function() {
+                            $(this).remove();
+                            location.reload(true)
+                            });
+                    }
+                    
                 },
                 error: function() {
                     alert('Error deleting record');

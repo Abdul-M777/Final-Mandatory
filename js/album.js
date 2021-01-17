@@ -31,7 +31,7 @@ $(document).ready(function() {
             tr.push('<td>' + data[i].albumId + '</td>');
             tr.push('<td>' + data[i].title + '</td>');
             tr.push('<td>' + data[i].name + '</td>');
-            tr.push('<td><button class=\'edit\'>Edit</button>&nbsp;&nbsp;<button class=\'delete\' id=' + data[i].AlbumId + '>Delete</button></td>');
+            tr.push('<td><button class=\'edit\'>Edit</button>&nbsp;&nbsp;<button class=\'delete\' id=' + data[i].albumId + '>Delete</button></td>');
             tr.push('</tr>');
         }
         $('table').append($(tr.join('')));
@@ -83,7 +83,7 @@ $(document).ready(function() {
                     parent.fadeOut('slow', function() {
                         $(this).remove();
                     });
-                     location.reload(true)
+                    //  location.reload(true)
                 },
                 error: function() {
                     alert('Error deleting record');
